@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -108,7 +109,7 @@ public class MainMenu : MonoBehaviour {
 
     //Creates Game Settings
     public void CreateSettings() { 
-        settings = new GameSettings(-45.2f, 4, true);
+        settings = new GameSettings(-45.2f, 4, true, DateTime.Now.Month);
     }
 
     //Sets Settings And Applys them
