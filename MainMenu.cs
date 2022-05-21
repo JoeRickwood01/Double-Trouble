@@ -42,6 +42,7 @@ public class MainMenu : MonoBehaviour {
         CreateSettings();
         SetPaths();
         if(File.Exists(path)) {
+            SaveData(new GameSettings(settings.volume, settings.quality, settings.fullScreen, DateTime.Now.Month));
             settings = LoadData();
         }else {
             SaveData(settings);
