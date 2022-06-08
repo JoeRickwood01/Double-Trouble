@@ -8,8 +8,8 @@ public class CameraController : MonoBehaviour {
     private float cameraSmoothSpeed = 2f;
     [SerializeField] [Tooltip("The World Space Offset Of The Camera")]
     private Vector3 offset = new Vector3(0f, 0f, 0f);
-    [SerializeField] [Tooltip("The Distance The Camera Follows At With Its Direction Into Account")]
-    private float followDistance = 10f;
+    [Tooltip("The Distance The Camera Follows At With Its Direction Into Account")]
+    public float followDistance = 10f;
     [SerializeField] [Tooltip("The Rotation Of The Camera")]
     private Quaternion cameraRotation = Quaternion.Euler(0f, 0f, 0f);
     [SerializeField] [Tooltip("The Speed At Which The Camera Rotates")]

@@ -54,10 +54,10 @@ public class PlayerActions : MonoBehaviour {
 
         switch (GetComponent<PlayerController>().ControlType) {
             case 0:
-                controls.Gameplay.InteractKeyBoard.performed += ctx => PickupDrop();
+                controls.Gameplay.InteractKeyBoard.performed += ctx => Interact();
                 break;
             case 1:
-                controls.Gameplay.InteractController.performed += ctx => PickupDrop();
+                controls.Gameplay.InteractController.performed += ctx => Interact();
                 break;
             default:
                 Debug.LogError("Control Type Does Not Exist");
@@ -92,7 +92,7 @@ public class PlayerActions : MonoBehaviour {
         }
     }
 
-    void PickupDrop() {
+    void Interact() {
         if(hands.childCount > 0) {
             foundInteraction = Physics.Raycast(hands.position, interactionCheck.TransformDirection(Vector3.forward), out interactionHit, interactionCheckDistance, interactionLayers);
         }else {

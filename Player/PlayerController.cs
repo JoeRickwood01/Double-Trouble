@@ -16,11 +16,13 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] [Tooltip("The CharacterController Component Attached To The Player")]
     private CharacterController controller;
     [SerializeField] [Tooltip("The Speed At Which The Player Rotates")]
-    private float cameraRotateSpeed = 10f;
+    private float rotationSpeed = 10f;
     [SerializeField] [Tooltip("THe Animator Component On Character")]
     private Animator anim;
 
     public Vector3 velocity;
+
+    public Transform cam;
 
     [Header("Gravity Control")]
     public Vector3 gravityVector = new Vector3(0, 0f, 0f);
@@ -36,8 +38,6 @@ public class PlayerController : MonoBehaviour {
 
     private void Awake() {
         controls = new PlayerControls();
-
-        controls.Gameplay.MoveKeyBoard.ReadValue<Vector2>();
     }
 
     //Update Contains All The Essential Code For It To Move
@@ -58,7 +58,8 @@ public class PlayerController : MonoBehaviour {
             anim.SetFloat("Move", velocity.magnitude);
 
             if(velocity.magnitude > 0) {
-                transform.forward = Vector3.Lerp(transform.forward, Vector3.Normalize(velocity), Time.deltaTime * cameraRotateSpeed); 
+                Quaternion toRotate = Quaternion.LookRotation(velocity, Vector3.up);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotate, rotationSpeed * Time.deltaTime); 
             }
 
             controller.Move(velocity * speed * Time.deltaTime); 
@@ -83,5 +84,11 @@ public class PlayerController : MonoBehaviour {
 
     private void OnDisable() {
         controls.Disable();
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("CameraTrigger")) {
+            cam.GetComponent<CameraController>().followDistance = other.transform.GetComponent<CameraTrigger>().cameraDistance;
+        }
     }
 }
