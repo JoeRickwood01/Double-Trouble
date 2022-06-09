@@ -99,7 +99,7 @@ public class PlayerActions : MonoBehaviour {
             foundInteraction = Physics.Raycast(interactionCheck.position, interactionCheck.TransformDirection(Vector3.forward), out interactionHit, interactionCheckDistance, interactionLayers);
         }
 
-        if(hands.childCount > 0) {
+        if(hands.childCount > 0 && foundInteraction == false) {
             hands.GetChild(0).GetComponent<Rigidbody>().velocity += transform.forward * throwVelocity + GetComponent<PlayerController>().velocity; 
             if(hands.GetChild(0).transform.GetComponent<Rigidbody>() != null) {
                 hands.GetChild(0).transform.GetComponent<Rigidbody>().isKinematic = false;
@@ -108,11 +108,16 @@ public class PlayerActions : MonoBehaviour {
         }
 
         if(foundInteraction == true) {
-            interactionHit.transform.parent = hands;
-            interactionHit.transform.position = hands.position;
-            interactionHit.transform.rotation = Quaternion.Euler(0f, transform.rotation.y, 0f);
-            if(hands.GetChild(0).transform.GetComponent<Rigidbody>() != null) {
-                hands.GetChild(0).transform.GetComponent<Rigidbody>().isKinematic = true;
+            if(interactionHit.transform.CompareTag("Pickup")) {
+                interactionHit.transform.parent = hands;
+                interactionHit.transform.position = hands.position;
+                interactionHit.transform.rotation = Quaternion.Euler(0f, transform.rotation.y, 0f);
+                if(hands.GetChild(0).transform.GetComponent<Rigidbody>() != null) {
+                    hands.GetChild(0).transform.GetComponent<Rigidbody>().isKinematic = true;
+                }
+            }
+            if(interactionHit.transform.CompareTag("Lever")) {
+                interactionHit.transform.GetComponent<Lever>().Activate();
             }
         }
     }
