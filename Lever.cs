@@ -10,6 +10,6 @@ public class Lever : MonoBehaviour {
     public void Activate() {
         Activated = !Activated;
         anim.SetBool("Activated", Activated);
-        lift.Activate();
+        lift.Activate(); 
     }
 }
