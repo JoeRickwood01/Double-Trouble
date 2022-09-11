@@ -19,7 +19,9 @@ public class MovingPlatform : MonoBehaviour {
                 }
             }
         }else {
-            transform.position = Vector3.MoveTowards(transform.position, StopPoints[0].position, Time.deltaTime * platformSpeed);
+            if(StopPoints[0] != null) {
+                transform.position = Vector3.MoveTowards(transform.position, StopPoints[0].position, Time.deltaTime * platformSpeed);
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour {
     }
 
     //Starts Game With The Correct Player Selected And Disables The Rest Of The Players If In Singleplayer Mode
-    public void StartGame() {
+    public string StartGame() {
         if(gameMode == GameMode.Singleplayer) {
             for (int i = 0; i < players.Count; i++) {
                 if(i == currentPlayer) {
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
+        return "Game Started";
     }
 
     void Update() {

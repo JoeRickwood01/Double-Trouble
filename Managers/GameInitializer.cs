@@ -34,6 +34,7 @@ public class GameInitializer : MonoBehaviour {
                     }
                     GameManager.manager.players.Add(currentPlayer);
                     currentRig = new GameObject("Camera Rig" + i, typeof(CameraController)).transform;
+                    currentPlayer.camRig = currentRig;
                     currentRig.GetComponent<CameraController>().target = currentPlayer.transform;
                     currentRig.transform.position = currentPlayer.gameObject.transform.position;
                     currentCam = new GameObject("Camera" + i, typeof(Camera)).GetComponent<Camera>();
